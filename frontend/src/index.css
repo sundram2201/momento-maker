@@ -108,3 +108,30 @@ main.ant-layout-content {
   box-shadow: 0 0 0 0.25rem transparent !important;
   border-bottom: 1px solid black !important;
 }
+
+.projectTeam {
+  background: rgba(230, 203, 71, 0.9) !important;
+  color: rgba(0, 0, 0, 1) !important;
+  border: 1px solid rgba(0, 0, 0, 0.2) !important;
+  height: 2rem;
+  width: 2rem;
+  font-size: 0.8rem;
+  font-weight: 500;
+  /* margin-left: -0.5rem !important; */
+}
+
+.projectTeamTT {
+  height: 5rem;
+  width: 5rem;
+}
+.projectTeam:hover {
+  background: rgba(230, 203, 71, 1) !important;
+  color: rgba(0, 0, 0, 1) !important;
+  border: 1px solid rgba(0, 0, 0, 1) !important;
+}
+
+.avatar img {
+  height: 100%;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  padding: 2px;
+}

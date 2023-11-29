@@ -16,6 +16,8 @@ const formStyles = {
 };
 
 const Signup = () => {
+  const [cities, setCities] = useState([]);
+
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
   const formik = useFormik({
@@ -33,7 +35,7 @@ const Signup = () => {
       try {
         const res = await axios.post(BASE_URL + "/api/user/register-user", values);
         if (res.status === 201) {
-          navigate("/");
+          navigate("/sign-in");
           toast.success("User signed up");
         }
       } catch (err) {
@@ -43,15 +45,41 @@ const Signup = () => {
     },
   });
 
+  const token = localStorage.getItem("token");
+
   const { handleSubmit, handleChange } = formik;
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
 
+  const getAllCities = async () => {
+    try {
+      const res = await axios.get(BASE_URL + "/api/city/city-list", {
+        headers: { token },
+      });
+      if (res.status === 200) {
+        setCities(res.data.data);
+      }
+    } catch (err) {
+      console.log(err);
+      return err;
+    }
+  };
+
   useEffect(() => {
     formik.setFieldValue("mobile_no_pre", "+91");
+    getAllCities();
   }, []);
+
+  const CityList = () =>
+    cities?.map((el, i) => {
+      return (
+        <option key={i} value={el}>
+          {el}
+        </option>
+      );
+    });
 
   const CountryCodes = () =>
     ["+91", "+1", "+44"].map((el, i) => (
@@ -143,7 +171,7 @@ const Signup = () => {
           </div>
 
           <div className='row mb-5'>
-            <div className='col-md-6'>
+            {/* <div className='col-md-6'>
               <label htmlFor='city' className='form-label'>
                 City
               </label>
@@ -156,6 +184,20 @@ const Signup = () => {
                 style={formStyles}
                 id='city'
               />
+            </div> */}
+            <div className='col-md-6'>
+              <label htmlFor='city' className='form-label'>
+                City
+              </label>
+              <select
+                name='city'
+                value={formik.values.city}
+                onChange={(e) => handleChange(e)}
+                className='form-select'
+                style={formStyles}
+                id='city'>
+                <CityList />
+              </select>
             </div>
             <div className='col-md-6'>
               <label htmlFor='password' className='form-label'>

@@ -25,13 +25,31 @@ const AddMoment = () => {
       title: "",
       comment: "",
       tags: "",
-      file: "",
+      files: "",
     },
     validationSchema: "",
     onSubmit: async (values) => {
       console.log(values);
+
+      const formData = new FormData();
+
+      formData.append("title", values.title);
+      formData.append("comment", values.comment);
+      formData.append("tags", values.tags);
+
+      if (values.files) {
+        for (let i = 0; i < values.files.length; i++) {
+          formData.append("files", values.files[i]);
+        }
+      }
+
       try {
-        const res = await axios.post(BASE_URL + "/api/moment/create-moment", values, { headers: { token } });
+        const res = await axios.post(BASE_URL + "/api/moment/create-moment", formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            token,
+          },
+        });
         if (res.status === 200) {
           navigate("/");
           toast.success("Moment added successfully");
@@ -48,7 +66,9 @@ const AddMoment = () => {
     if (Array.isArray(e)) {
       return e;
     }
-    formik.setFieldValue("file", e?.fileList);
+    const momentImg = e?.fileList[0];
+
+    formik.setFieldValue("files", e?.fileList);
     return e?.fileList;
   };
   console.log(formik.values, ">?formik.values");

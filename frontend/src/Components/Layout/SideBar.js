@@ -1,13 +1,15 @@
 import React, { useState } from "react";
 import { DesktopOutlined, UserOutlined } from "@ant-design/icons";
-import { Layout, Menu, theme } from "antd";
+import { Button, Layout, Menu, theme } from "antd";
 import logo from "../../Images/5d light 1.png";
 import { useNavigate } from "react-router-dom";
+import { PoweroffOutlined } from "@ant-design/icons";
 
 const { Header, Content, Footer, Sider } = Layout;
 function getItem(label, key, icon, children) {
   return { key, icon, children, label };
 }
+
 const items = [
   getItem("Profile", "profile", <DesktopOutlined />),
   getItem("Moments", "1", <UserOutlined />, [getItem("Moment list", "mList"), getItem("Add moment", "addM")]),
@@ -21,13 +23,17 @@ const Sidebar = ({ children }) => {
     token: { colorBgContainer },
   } = theme.useToken();
 
+  const signOut = () => {
+    localStorage.clear();
+    navigate("/sign-in");
+  };
   const handleClick = (event) => {
     if (event.key === "profile") {
-      navigate("/profile");
+      navigate("/");
     } else if (event.key === "addM") {
       navigate("/add-moment");
     } else if (event.key === "mList") {
-      navigate("/");
+      navigate("/moment-list");
     }
   };
   return (
@@ -37,7 +43,14 @@ const Sidebar = ({ children }) => {
         <div className='my-5 text-center'>
           <img src={logo} />
         </div>
-        <Menu theme='dark' defaultSelectedKeys={["1"]} mode='inline' items={items} onClick={(e) => handleClick(e)} />
+        <Menu
+          defaultSelectedKeys={["0"]}
+          theme='dark'
+          // defaultSelectedKeys={["1"]}
+          mode='inline'
+          items={items}
+          onClick={(e) => handleClick(e)}
+        />
       </Sider>
       <Layout>
         <Header
@@ -46,7 +59,8 @@ const Sidebar = ({ children }) => {
             justifyContent: "space-between",
           }}>
           <div className='demo-logo' />
-          <Menu theme='dark' mode='horizontal' defaultSelectedKeys={["2"]} items={items1} />
+          {/* <Menu theme='dark' mode='horizontal' defaultSelectedKeys={["2"]} items={items1} /> */}
+          <Button className='my-3' type='primary' icon={<PoweroffOutlined />} onClick={() => signOut()} />
         </Header>
 
         <Content

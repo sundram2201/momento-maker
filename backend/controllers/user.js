@@ -84,9 +84,7 @@ exports.momentList = async (req, res) => {
       res.status(404).json({ status: false, message: "invalid user" });
     }
 
-    // `${req.protocol}://${req.get("host")}/profile/${finalData?.image?.split("\\")[1]}`
     let message = `${req.protocol}:${req.get("host")}/uploads/`;
-    console.log({ message });
 
     const momentList = await MomentDB.aggregate([
       {
@@ -103,17 +101,18 @@ exports.momentList = async (req, res) => {
           userId: 1,
           createdAt: 1,
           updatedAt: 1,
-          file: {
-            $concat: [message, "$file"],
+          files: {
+            $map: {
+              input: "$files",
+              as: "files",
+              in: {
+                $concat: [message, "$$files"],
+              },
+            },
           },
         },
       },
     ]);
-    // ({ userId }).sort({
-    //   createdAt: -1,
-    // });
-
-    // const momentList = await MomentDB.find({ userId }).sort({ createdAt: -1 });
 
     return res.status(200).json({
       success: true,

@@ -1,13 +1,19 @@
 const MomentDB = require("../models/moment");
 const UserDB = require("../models/user");
+const fs = require("fs");
 
 exports.createMoment = async (req, res) => {
   try {
     const { title, comment, tags } = req.body;
-    // const { filename } = req.file;
-    console.log(req.file, ">?>?>?>?>?>?>?");
+    let files = req.files;
+    console.log(req.files, ":>?>?mmmmmmmmmmmmdmmmmmmmmmmmmmm");
 
-    const { filename } = req.file[0];
+    if (!files.length) {
+      throw new Error("please add one or more image");
+    }
+
+    files = files.map((d) => d.filename);
+
     const userId = req.user;
 
     const checkUser = await UserDB.findOne({ _id: req.user });
@@ -33,7 +39,7 @@ exports.createMoment = async (req, res) => {
       comment,
       tags,
       userId,
-      file: filename,
+      files,
     });
 
     if (!addMomentData) {
@@ -74,6 +80,19 @@ exports.deleteMoment = async (req, res) => {
     if (!deleteMomentData) {
       return res.send("something went wrong");
     }
+
+    deleteMomentData.files.map((items) => {
+      fs.unlink(`./uploads/${items}`, (err) => {
+        if (err && err.errno == -4058) {
+          console.log({
+            message: "no such file or directory",
+            path: err.path.replaceAll("\\", "/"),
+          });
+        } else if (err) {
+          console.log({ error: err });
+        }
+      });
+    });
 
     res.status(200).json({
       success: true,

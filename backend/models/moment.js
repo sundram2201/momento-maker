@@ -12,18 +12,20 @@ const momentSchema = new mongoose.Schema(
       type: String,
       default: "",
     },
-    tags: {
-      type: Array,
-      default: [],
-    },
+    tags: [
+      {
+        type: String,
+      },
+    ],
     userId: {
       type: ObjectId,
       ref: "user",
     },
-    file: {
-      type: String,
-      default: "",
-    },
+    files: [
+      {
+        type: String,
+      },
+    ],
   },
   {
     timestamps: true,

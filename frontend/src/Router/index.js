@@ -5,6 +5,7 @@ import SignIn from "../Pages/Account/Signin";
 import PrivateRoute from "./PrivateRoute";
 import Profile from "../Pages/Account/Profile";
 import AddMoment from "../Pages/Moments/AddMoment";
+import MomentList from "../Pages/Moments/MomentList";
 
 const Router = () => {
   const router = createBrowserRouter([
@@ -13,6 +14,14 @@ const Router = () => {
       element: (
         <PrivateRoute>
           <Home />
+        </PrivateRoute>
+      ),
+    },
+    {
+      path: "/moment-list",
+      element: (
+        <PrivateRoute>
+          <MomentList />
         </PrivateRoute>
       ),
     },
