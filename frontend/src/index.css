@@ -1,0 +1,110 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
+    "Droid Sans", "Helvetica Neue", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
+}
+
+input:focus,
+select:focus {
+  box-shadow: 0 0 0 0.25rem transparent !important;
+  border-bottom: 1px solid black !important;
+}
+
+.sidebar {
+  width: 200px;
+  background-color: #333;
+  color: white;
+  padding: 20px;
+}
+
+.sidebar-item {
+  margin-bottom: 10px;
+}
+
+.with-dropdown {
+  cursor: pointer;
+}
+
+.dropdown {
+  margin-top: 5px;
+  display: none;
+}
+
+.dropdown a {
+  display: block;
+  color: white;
+  padding: 5px 0;
+  text-decoration: none;
+}
+
+.css-t3ipsp-control:focus-within {
+  border-bottom: 1px solid black !important;
+}
+.css-t3ipsp-control {
+  box-shadow: 0 0 0 transparent !important;
+  border-bottom: 1px solid black !important;
+  border-color: transparent !important ;
+}
+.css-13cymwt-control {
+  border-bottom: 1px solid #ced4da !important;
+  border-top-color: transparent !important;
+  border-right-color: transparent !important;
+  border-left-color: transparent !important;
+}
+.css-1hb7zxy-IndicatorsContainer {
+  display: none !important;
+}
+.css-1nmdiq5-menu {
+  display: none !important;
+}
+
+.css-1p3m7a8-multiValue {
+  background: white !important;
+  border: 1px solid rgba(0, 0, 0, 0.2) !important;
+  border-radius: 15px !important;
+}
+
+.css-12a83d4-MultiValueRemove:hover {
+  background-color: transparent !important;
+  color: #de350b;
+}
+
+.ant-layout-sider-children {
+  background: white;
+}
+
+ul.ant-menu.ant-menu-root.ant-menu-inline.ant-menu-dark.css-dev-only-do-not-override-zcfrx9,
+.ant-layout-sider-trigger,
+.ant-layout-header {
+  background: white !important;
+  color: black !important;
+}
+.ant-menu-submenu-title {
+  color: black !important;
+}
+.ant-menu-sub {
+  background: #f5f5f5 !important;
+}
+li.ant-menu-item:hover {
+  color: black !important;
+}
+
+.ant-menu-item-selected {
+  background: #001b30 !important;
+  font-weight: 700;
+}
+
+main.ant-layout-content {
+  margin-top: 1rem !important;
+}
+
+.form-control:focus {
+  box-shadow: 0 0 0 0.25rem transparent !important;
+  border-bottom: 1px solid black !important;
+}
