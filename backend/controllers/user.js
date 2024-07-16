@@ -7,15 +7,7 @@ const JWT_SECRET = process.env.JWT_SECRET || "abc";
 
 exports.createUser = async (req, res) => {
   try {
-    const {
-      first_name,
-      last_name,
-      mobile_no_pre,
-      mobile_no,
-      email,
-      city,
-      password,
-    } = req.body;
+    const { first_name, last_name, mobile_no_pre, mobile_no, email, city, password } = req.body;
 
     const existingUser = await UserDB.findOne({ email });
     if (existingUser) {
@@ -55,11 +47,7 @@ exports.loginUser = async (req, res) => {
     const passwordMatch = await bcrypt.compare(password, user.password);
 
     if (passwordMatch) {
-      const token = jwt.sign(
-        { userId: user._id, email: user.email },
-        JWT_SECRET,
-        { expiresIn: "1h" }
-      );
+      const token = jwt.sign({ userId: user._id, email: user.email }, JWT_SECRET, { expiresIn: "1h" });
       return res.status(200).json({
         success: true,
         message: "login successfully",
@@ -121,5 +109,21 @@ exports.momentList = async (req, res) => {
     });
   } catch (error) {
     res.status(500).json({ error: error.message });
+  }
+};
+
+exports.getUserDetails = async (req, res) => {
+  try {
+    const user = await UserDB.findOne({ _id: req.user });
+    const userData = {
+      userId: user._id,
+      first_name: user.first_name,
+      last_name: user.last_name,
+      email: user.email,
+      mobile_no: user.mobile_no_pre + user.mobile_no,
+    };
+    return res.status(200).json(userData);
+  } catch (err) {
+    res.status(500).json({ error: "Error getting data" });
   }
 };

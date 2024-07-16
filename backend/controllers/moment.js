@@ -6,7 +6,7 @@ exports.createMoment = async (req, res) => {
   try {
     const { title, comment, tags } = req.body;
     let files = req.files;
-    console.log(req.files, ":>?>?mmmmmmmmmmmmdmmmmmmmmmmmmmm");
+    // console.log(req.files, ":>?>?mmmmmmmmmmmmdmmmmmmmmmmmmmm");
 
     if (!files.length) {
       throw new Error("please add one or more image");
