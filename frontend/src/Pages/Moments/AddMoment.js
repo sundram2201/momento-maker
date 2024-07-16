@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useFormik } from "formik";
 import { InboxOutlined } from "@ant-design/icons";
@@ -19,17 +19,23 @@ const formStyles = {
 };
 
 const AddMoment = () => {
+  const [tags, setTags] = useState([]);
   const navigate = useNavigate();
+
   const formik = useFormik({
     initialValues: {
       title: "",
       comment: "",
-      tags: "",
-      files: "",
+      tags: [],
+      files: [],
     },
     validationSchema: "",
     onSubmit: async (values) => {
-      console.log(values);
+      // const tagMap = tag.map((d) => d.value);
+
+      // await formik.setFieldValue("tags", tagMap);
+
+      // console.log(values, "<<<<<<<>>>>>>>>>>>>>>>>>>");
 
       const formData = new FormData();
 
@@ -50,12 +56,12 @@ const AddMoment = () => {
             token,
           },
         });
-        if (res.status === 200) {
+        if (res.status === 201) {
           navigate("/");
           toast.success("Moment added successfully");
         }
       } catch (err) {
-        toast.error("Sign up failed");
+        toast.error("Error while adding moment");
         return err;
       }
     },
@@ -66,14 +72,20 @@ const AddMoment = () => {
     if (Array.isArray(e)) {
       return e;
     }
-    const momentImg = e?.fileList[0];
+    // const momentImg = e?.fileList[0];
 
-    formik.setFieldValue("files", e?.fileList);
+    console.log(e, ">?e?.fileList");
+    formik.setFieldValue("files", [...formik.values.files, e?.target?.files]);
     return e?.fileList;
   };
-  console.log(formik.values, ">?formik.values");
+
+  const handleFileChange = (event) => {
+    formik.setFieldValue("files", event.target.files);
+  };
 
   const { handleSubmit, handleChange } = formik;
+
+  console.log(formik.values, "taggggg");
 
   return (
     <div className=''>
@@ -116,19 +128,24 @@ const AddMoment = () => {
                 isClearable
                 isMulti
                 name='tags'
-                value={formik.values.tags}
+                value={tags}
                 onChange={(e) => {
-                  formik.setFieldValue("tags", e);
+                  setTags(e);
+
+                  formik.setFieldValue(
+                    "tags",
+                    e.map((el) => [el.value])
+                  );
                 }}
               />
             </div>
             <div className='col-md-6 my-5'>
-              <Form.Item
+              {/* <Form.Item
                 label=''
                 className='dragFormmmmmmmmmmmmmmm'
                 style={{ border: "2px dashed rgb(206, 212, 218)" }}>
                 <Form.Item name='dragger' valuePropName='fileList' getValueFromEvent={normFile} noStyle>
-                  <Upload.Dragger name='files' action='/upload.do'>
+                  <Upload.Dragger name='files' action={BASE_URL + "/api/moment/create-moment"}>
                     <p className='ant-upload-drag-icon'>
                       <InboxOutlined />
                     </p>
@@ -136,7 +153,9 @@ const AddMoment = () => {
                     <p className='ant-upload-hint'>Support for a single or bulk upload.</p>
                   </Upload.Dragger>
                 </Form.Item>
-              </Form.Item>
+              </Form.Item> */}
+              <label htmlFor='files' className='form-label'></label>
+              <input type='file' name='files' onChange={handleFileChange} className='form-control' multiple />
             </div>
           </div>
 

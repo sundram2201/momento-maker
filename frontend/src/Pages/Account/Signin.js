@@ -11,7 +11,6 @@ const SignIn = () => {
 
   const onFinish = async (values) => {
     const isValidEmail = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/.test(values.email);
-    console.log(values, ">?>?");
 
     if (!isValidEmail) {
       onFinishFailed({
@@ -22,7 +21,6 @@ const SignIn = () => {
 
     try {
       const res = await axios.post(BASE_URL + "/api/user/login-user", values);
-      console.log(res);
 
       if (res.status === 200) {
         navigate("/");
@@ -37,7 +35,7 @@ const SignIn = () => {
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
     localStorage.clear();
-    toast.error(errorInfo?.response?.data?.error);
+    // toast.error(errorInfo?.response?.data?.error);
   };
   return (
     <div

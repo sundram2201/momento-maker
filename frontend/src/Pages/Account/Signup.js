@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useFormik } from "formik";
-import logo from "../../Images/Group 938.png";
+import logo from "../../Images/momento.png";
 import axios from "axios";
 import { BASE_URL } from "../../Utils/BaseUrl";
 import { Link, useNavigate } from "react-router-dom";
@@ -89,8 +89,8 @@ const Signup = () => {
     ));
   return (
     <div className=''>
-      <div className='py-5 text-center' style={{ background: "#001B30" }}>
-        <img src={logo} />
+      <div className='py-5 text-center' style={{ background: "rgba(0, 0, 0, 0.1)" }}>
+        <img src={logo} style={{ width: "10%" }} />
       </div>
       <div className='container mt-5'>
         <h1 className='mb-5 text-center fw-bold'>Sign Up</h1>

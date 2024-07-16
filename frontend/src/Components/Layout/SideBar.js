@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { DesktopOutlined, UserOutlined } from "@ant-design/icons";
 import { Button, Layout, Menu, theme } from "antd";
-import logo from "../../Images/5d light 1.png";
+import logo from "../../Images/momento.png";
 import { useNavigate } from "react-router-dom";
 import { PoweroffOutlined } from "@ant-design/icons";
 
@@ -41,7 +41,7 @@ const Sidebar = ({ children }) => {
       <Sider collapsible collapsed={collapsed} onCollapse={(value) => setCollapsed(value)}>
         <div className='demo-logo-vertical' />
         <div className='my-5 text-center'>
-          <img src={logo} />
+          <img src={logo} style={{ width: "90%" }} />
         </div>
         <Menu
           defaultSelectedKeys={["0"]}

@@ -43,14 +43,16 @@ const MomentList = () => {
       title: "Tags",
       dataIndex: "tags",
       key: "tags",
-      render: (e) =>
-        e.map((el) => {
+      render: (e) => {
+        console.log(e, ">?>?>?>?");
+        return e.map((el) => {
           return (
             <Tag color={"green"} key={el}>
               {el}
             </Tag>
           );
-        }),
+        });
+      },
     },
     {
       title: "Images",
