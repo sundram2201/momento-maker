@@ -3,6 +3,7 @@ import react, { useEffect, useState } from "react";
 import { BASE_URL } from "../../Utils/BaseUrl";
 import { Table, Tag, Tooltip } from "antd";
 import { Link } from "react-router-dom";
+import toast from "react-hot-toast";
 
 const MomentList = () => {
   const [data, setData] = useState([]);
@@ -12,11 +13,14 @@ const MomentList = () => {
       const res = await axios.get(BASE_URL + "/api/user/moment-list", {
         headers: { token },
       });
-      if (res.status === 200) {
+      if (!res) {
+        toast.error("Invalid user");
+        window.location.href = "/sign-in";
+      } else if (res.status === 200) {
         setData(res.data.data);
       }
     } catch (err) {
-      console.log(err);
+      console.log(err, ">?errror in moneeeeee");
       return err;
     }
   };
@@ -24,6 +28,11 @@ const MomentList = () => {
   useEffect(() => {
     getAllMoments();
   }, []);
+
+  function getImageUrl(url) {
+    const fixUrl = "http://192.168.1.41:8080/uploads/";
+    return fixUrl + url.split("/").at(-1);
+  }
 
   const title = (thumbImg) => {
     return <img className='projectTeamTT' src={thumbImg} />;
@@ -44,7 +53,6 @@ const MomentList = () => {
       dataIndex: "tags",
       key: "tags",
       render: (e) => {
-        console.log(e, ">?>?>?>?");
         return e.map((el) => {
           return (
             <Tag color={"green"} key={el}>
@@ -60,6 +68,9 @@ const MomentList = () => {
       key: "files",
       render: (e) =>
         e.map((el) => {
+          const imageUrl = getImageUrl(el); // Extract image URL correctly
+
+          console.log(imageUrl, "ellllllllll"); // Log the extracted URL
           return (
             <div key={el} className='avatar-group d-inline-block'>
               <Tooltip title={title(el)} trigger='hover'>
@@ -67,7 +78,7 @@ const MomentList = () => {
                   target='_'
                   to={el}
                   className='projectTeam avatar rounded-circle text-white border border-1 border-solid border-card'>
-                  <img className='projectTeam' src={el} />
+                  <img className='projectTeam' src={imageUrl} />
                 </Link>
               </Tooltip>
             </div>

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { BASE_URL } from "../../Utils/BaseUrl";
 import axios from "axios";
+import toast from "react-hot-toast";
 
 const Home = () => {
   const [userData, setUserData] = useState(null);
@@ -11,7 +12,11 @@ const Home = () => {
       const res = await axios.get(BASE_URL + "/api/user/get-user", {
         headers: { token },
       });
-      if (res.status === 200) {
+      if (!res) {
+        toast.error("Invalid user");
+        window.location.href = "/sign-in";
+        return false;
+      } else if (res.status === 200) {
         setUserData(res.data);
       }
     } catch (err) {
