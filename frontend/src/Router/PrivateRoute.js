@@ -1,11 +1,8 @@
 import { Navigate } from "react-router-dom";
 import Sidebar from "../Components/Layout/SideBar";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 
 const PrivateRoute = ({ children }) => {
-  // const navigate = useNavigate();
-
   axios.interceptors.response.use(
     (response) => response,
     (error) => {

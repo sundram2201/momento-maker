@@ -1,4 +1,4 @@
-import { RouterProvider, createBrowserRouter, useNavigate } from "react-router-dom";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import Home from "../Pages/Dashboard";
 import Signup from "../Pages/Account/Signup";
 import SignIn from "../Pages/Account/Signin";
@@ -6,7 +6,6 @@ import PrivateRoute from "./PrivateRoute";
 import Profile from "../Pages/Account/Profile";
 import AddMoment from "../Pages/Moments/AddMoment";
 import MomentList from "../Pages/Moments/MomentList";
-import axios from "axios";
 
 const Router = () => {
   const router = createBrowserRouter([
