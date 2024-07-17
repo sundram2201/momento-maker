@@ -10,7 +10,7 @@ exports.verifyToken = async (req, res, next) => {
       if (err) {
         console.log("errr:::::");
         res.statusCode = 401;
-        return res.status(401).json({ status: false, message: "Invalsid Token" });
+        return res.status(401).json({ status: false, message: "Invalid Token" });
       } else {
         let resp = await UserDB.findOne({ _id: data.userId });
         if (!resp) {

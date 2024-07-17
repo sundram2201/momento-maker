@@ -115,6 +115,8 @@ exports.momentList = async (req, res) => {
 exports.getUserDetails = async (req, res) => {
   try {
     const user = await UserDB.findOne({ _id: req.user });
+
+    console.log(req.user);
     const userData = {
       userId: user._id,
       first_name: user.first_name,
@@ -122,8 +124,8 @@ exports.getUserDetails = async (req, res) => {
       email: user.email,
       mobile_no: user.mobile_no_pre + user.mobile_no,
     };
-    return res.status(200).json(userData);
+    return res.status(200).json({ message: "Data recieved successfully", userData });
   } catch (err) {
-    res.status(500).json({ error: "Error getting data" });
+    res.status(401).json({ error: "Error getting data" });
   }
 };
