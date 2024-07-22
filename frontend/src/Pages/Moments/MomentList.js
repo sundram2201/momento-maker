@@ -72,7 +72,6 @@ const MomentList = () => {
         e.map((el) => {
           const imageUrl = getImageUrl(el); // Extract image URL correctly
 
-          console.log(imageUrl, "ellllllllll"); // Log the extracted URL
           return (
             <div key={el} className='avatar-group d-inline-block'>
               {/* <Tooltip title={title(el)} trigger='hover'> */}

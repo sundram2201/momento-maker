@@ -44,6 +44,7 @@ const Sidebar = ({ children }) => {
           <img src={logo} style={{ width: "90%" }} />
         </div>
         <Menu
+          style={{ background: "white", color: "black" }}
           defaultSelectedKeys={["0"]}
           theme='dark'
           // defaultSelectedKeys={["1"]}
