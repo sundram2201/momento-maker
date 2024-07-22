@@ -1,7 +1,6 @@
 import React from "react";
 import { Button, Form, Input } from "antd";
 import { Link, useNavigate } from "react-router-dom";
-import { SignInAPI } from "../../APIs/index";
 import toast from "react-hot-toast";
 import { BASE_URL } from "../../Utils/BaseUrl";
 import axios from "axios";
