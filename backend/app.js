@@ -14,12 +14,12 @@ const cityListRoute = require("./routes/cityList");
 // middleware for request
 app.use(express.json());
 
-// app.use(
-//   cors({
-//     origin: "https://redux-mart.onrender.com" || "http://localhost:3000", // Default to localhost for development
-//     credentials: true, // Allow cookies (if applicable)
-//   })
-// );
+app.use(
+  cors({
+    origin: "https://momento-maker.onrender.com" || "http://localhost:3000", // Default to localhost for development
+    credentials: true, // Allow cookies (if applicable)
+  })
+);
 
 app.use("/uploads", express.static("uploads"));
 
