@@ -1,7 +1,7 @@
 import axios from "axios";
 import react, { useEffect, useState } from "react";
 import { BASE_URL } from "../../Utils/BaseUrl";
-import { Table, Tag, Tooltip } from "antd";
+import { Table, Tag } from "antd";
 import { Link } from "react-router-dom";
 import toast from "react-hot-toast";
 import { DashLoader } from "../../Components/Loaders";
@@ -75,14 +75,14 @@ const MomentList = () => {
           console.log(imageUrl, "ellllllllll"); // Log the extracted URL
           return (
             <div key={el} className='avatar-group d-inline-block'>
-              <Tooltip title={title(el)} trigger='hover'>
-                <Link
-                  target='_'
-                  to={el}
-                  className='projectTeam avatar rounded-circle text-white border border-1 border-solid border-card'>
-                  <img className='projectTeam' src={imageUrl} />
-                </Link>
-              </Tooltip>
+              {/* <Tooltip title={title(el)} trigger='hover'> */}
+              <Link
+                target='_'
+                to={el}
+                className='projectTeam avatar rounded-circle text-white border border-1 border-solid border-card'>
+                <img className='projectTeam' src={imageUrl} />
+              </Link>
+              {/* </Tooltip> */}
             </div>
           );
         }),
