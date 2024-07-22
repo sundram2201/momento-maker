@@ -1,18 +1,27 @@
 const mongoose = require("mongoose");
 
-const MONGO_URI = process.env.DB_URI;
+require("dotenv").config();
 
-const connecting = async () => {
+// Use environment variable for MongoDB URI
+const MONGO_URI = process.env.DB_URI || "mongodb://localhost:27017/momentomaker";
+
+const connectDB = async () => {
   try {
-    await mongoose.connect(MONGO_URI, { useNewUrlParser: true });
+    await mongoose.connect(MONGO_URI);
+
+    console.log("MongoDB connected");
   } catch (err) {
-    console.log(err);
+    console.error("MongoDB connection error:", err);
+    throw err;
   }
 };
 
-const db = mongoose.connection;
+mongoose.connection.on("error", (err) => {
+  console.error("MongoDB error:", err);
+});
 
-db.once("open", () => console.log("DB is Connected"));
-db.on("error", (err) => console.log("Connection Error", err));
+mongoose.connection.on("disconnected", () => {
+  console.log("MongoDB disconnected");
+});
 
-module.exports = connecting;
+module.exports = connectDB;

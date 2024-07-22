@@ -1,13 +1,14 @@
 {
   "name": "momento-maker",
   "version": "1.0.0",
-  "main": "server.js",
+  "main": "app.js",
   "keywords": [],
   "author": "",
   "license": "ISC",
   "scripts": {
-    "start": "node server.js",
-    "dev": "nodemon server.js"
+    "start": "node dist/bundle.js",
+    "build": "npm install webpack-cli && webpack",
+    "dev": "nodemon app.js"
   },
   "description": "",
   "dependencies": {
