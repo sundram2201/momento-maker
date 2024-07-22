@@ -2,10 +2,12 @@ import { useEffect, useState } from "react";
 import { BASE_URL } from "../../Utils/BaseUrl";
 import axios from "axios";
 import toast from "react-hot-toast";
+import { DashLoader } from "../../Components/Loaders";
 
 const Home = () => {
   const [userData, setUserData] = useState(null);
   const token = localStorage.getItem("token");
+  console.log(userData, ">?userData");
 
   const fetchUser = async () => {
     try {
@@ -17,7 +19,7 @@ const Home = () => {
         window.location.href = "/sign-in";
         return false;
       } else if (res.status === 200) {
-        setUserData(res.data);
+        setUserData(res.data.userData);
       }
     } catch (err) {
       throw err;
@@ -53,7 +55,7 @@ const Home = () => {
       userKeys?.map((el, i) => {
         return (
           <>
-            <div className='row'>
+            <div className='row' key={i}>
               <div className='col-sm-3'>
                 <h6 className='mb-0'>{el.label}</h6>
               </div>
@@ -66,7 +68,7 @@ const Home = () => {
     );
   };
 
-  return (
+  return userData ? (
     <>
       <h1 className='text-center'>
         Welcome, <span style={{ fontWeight: "900" }}>{greetByName()}</span> 👋
@@ -75,14 +77,14 @@ const Home = () => {
         <div className='row'>
           <div className='col-md-12'>
             <div className='card mb-3'>
-              <div className='card-body'>
-                <UserInfo />
-              </div>
+              <div className='card-body'>{UserInfo()}</div>
             </div>
           </div>
         </div>
       </div>
     </>
+  ) : (
+    <DashLoader />
   );
 };
 export default Home;

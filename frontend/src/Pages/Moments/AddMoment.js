@@ -31,12 +31,6 @@ const AddMoment = () => {
     },
     validationSchema: "",
     onSubmit: async (values) => {
-      // const tagMap = tag.map((d) => d.value);
-
-      // await formik.setFieldValue("tags", tagMap);
-
-      // console.log(values, "<<<<<<<>>>>>>>>>>>>>>>>>>");
-
       const formData = new FormData();
 
       formData.append("title", values.title);
@@ -57,7 +51,7 @@ const AddMoment = () => {
           },
         });
         if (res.status === 201) {
-          navigate("/");
+          navigate("/moment-list");
           toast.success("Moment added successfully");
         }
       } catch (err) {
@@ -67,25 +61,11 @@ const AddMoment = () => {
     },
   });
 
-  const normFile = (e) => {
-    console.log("Upload event:", e);
-    if (Array.isArray(e)) {
-      return e;
-    }
-    // const momentImg = e?.fileList[0];
-
-    console.log(e, ">?e?.fileList");
-    formik.setFieldValue("files", [...formik.values.files, e?.target?.files]);
-    return e?.fileList;
-  };
-
   const handleFileChange = (event) => {
     formik.setFieldValue("files", event.target.files);
   };
 
   const { handleSubmit, handleChange } = formik;
-
-  console.log(formik.values, "taggggg");
 
   return (
     <div className=''>

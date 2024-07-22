@@ -4,9 +4,10 @@ import { BASE_URL } from "../../Utils/BaseUrl";
 import { Table, Tag, Tooltip } from "antd";
 import { Link } from "react-router-dom";
 import toast from "react-hot-toast";
+import { DashLoader } from "../../Components/Loaders";
 
 const MomentList = () => {
-  const [data, setData] = useState([]);
+  const [data, setData] = useState(null);
   const token = localStorage.getItem("token");
   const getAllMoments = async () => {
     try {
@@ -18,6 +19,7 @@ const MomentList = () => {
         window.location.href = "/sign-in";
       } else if (res.status === 200) {
         setData(res.data.data);
+        console.log(res.data.data, "?");
       }
     } catch (err) {
       console.log(err, ">?errror in moneeeeee");
@@ -86,7 +88,9 @@ const MomentList = () => {
         }),
     },
   ];
-  return (
+  return data === null ? (
+    <DashLoader />
+  ) : (
     <div className=''>
       <Table dataSource={data} columns={columns} />;
     </div>
