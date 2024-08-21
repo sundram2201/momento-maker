@@ -22,7 +22,9 @@ const Home = () => {
         setUserData(res.data.userData);
       }
     } catch (err) {
-      throw err;
+      if (err.code === "ERR_NETWORK") {
+        throw err;
+      }
     }
   };
 

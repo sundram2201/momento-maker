@@ -16,7 +16,7 @@ app.use(express.json());
 
 app.use(
   cors({
-    origin: "https://momento-maker.onrender.com" || "http://localhost:3000", // Default to localhost for development
+    origin: "http://localhost:3000", // Default to localhost for development
     credentials: true, // Allow cookies (if applicable)
   })
 );

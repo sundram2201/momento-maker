@@ -6,8 +6,8 @@ const PrivateRoute = ({ children }) => {
   axios.interceptors.response.use(
     (response) => response,
     (error) => {
-      console.log(error, ">?");
-      if (error?.response?.data?.status === false) {
+      console.log(error, "errorerror");
+      if (error?.response?.data?.status === false || error.code === "ERR_NETWORK") {
         localStorage.clear();
         <Navigate to={"/sign-in"} />;
       } else {

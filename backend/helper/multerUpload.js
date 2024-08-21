@@ -18,7 +18,7 @@ exports.uploadFile = multer({
     if (allowInputArr.includes(file.mimetype)) {
       cb(null, true);
     } else {
-      let err = new Error(`Invalid FIle Type`);
+      let err = new Error(`Invalid File Type`);
       err.name = "INVALID_FILE_TYPE";
       return cb(err, false);
     }

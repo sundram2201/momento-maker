@@ -19,7 +19,6 @@ const MomentList = () => {
         window.location.href = "/sign-in";
       } else if (res.status === 200) {
         setData(res.data.data);
-        console.log(res.data.data, "?");
       }
     } catch (err) {
       console.log(err, ">?errror in moneeeeee");
@@ -32,7 +31,7 @@ const MomentList = () => {
   }, []);
 
   function getImageUrl(url) {
-    const fixUrl = "http://192.168.1.41:8080/uploads/";
+    const fixUrl = `${BASE_URL}/uploads/`;
     return fixUrl + url.split("/").at(-1);
   }
 
@@ -70,18 +69,17 @@ const MomentList = () => {
       key: "files",
       render: (e) =>
         e.map((el) => {
-          const imageUrl = getImageUrl(el); // Extract image URL correctly
+          const imageUrl = getImageUrl(el);
+          console.log(imageUrl, "xxxxxxxxxxxx");
 
           return (
             <div key={el} className='avatar-group d-inline-block'>
-              {/* <Tooltip title={title(el)} trigger='hover'> */}
               <Link
                 target='_'
                 to={el}
                 className='projectTeam avatar rounded-circle text-white border border-1 border-solid border-card'>
                 <img className='projectTeam' src={imageUrl} />
               </Link>
-              {/* </Tooltip> */}
             </div>
           );
         }),
